@@ -27,18 +27,23 @@ import {
   // Texture, // Import THREE.js internals
 } from "webgi";
 import "./styles.css";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 async function setupViewer() {
   // Initialize the viewer
   const viewer = new ViewerApp({
     canvas: document.getElementById("webgi-canvas") as HTMLCanvasElement,
+    useRgbm: false,
   });
 
   const manager = await viewer.addPlugin(AssetManagerPlugin);
 
   // Add plugins individually.
-    await viewer.addPlugin(GBufferPlugin)
-    await viewer.addPlugin(new ProgressivePlugin(32))
+  await viewer.addPlugin(GBufferPlugin);
+  await viewer.addPlugin(new ProgressivePlugin(32));
   await viewer.addPlugin(new TonemapPlugin(!viewer.useRgbm));
   //   await viewer.addPlugin(GammaCorrectionPlugin)
   await viewer.addPlugin(SSRPlugin);
