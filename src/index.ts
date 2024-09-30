@@ -1,77 +1,81 @@
 import {
-    ViewerApp,
-    AssetManagerPlugin,
-    GBufferPlugin,
-    timeout,
-    ProgressivePlugin,
-    TonemapPlugin,
-    SSRPlugin,
-    SSAOPlugin,
-    DiamondPlugin,
-    FrameFadePlugin,
-    GLTFAnimationPlugin,
-    GroundPlugin,
-    BloomPlugin,
-    TemporalAAPlugin,
-    AnisotropyPlugin,
-    GammaCorrectionPlugin,
+  ViewerApp,
+  AssetManagerPlugin,
+  GBufferPlugin,
+  timeout,
+  ProgressivePlugin,
+  TonemapPlugin,
+  SSRPlugin,
+  SSAOPlugin,
+  DiamondPlugin,
+  FrameFadePlugin,
+  GLTFAnimationPlugin,
+  GroundPlugin,
+  BloomPlugin,
+  TemporalAAPlugin,
+  AnisotropyPlugin,
+  GammaCorrectionPlugin,
+  //   addBasePlugins,
+  ITexture,
+  TweakpaneUiPlugin,
+  AssetManagerBasicPopupPlugin,
+  CanvasSnipperPlugin,
+  IViewerPlugin,
+  FileTransferPlugin,
 
-    addBasePlugins,
-    ITexture, TweakpaneUiPlugin, AssetManagerBasicPopupPlugin, CanvasSnipperPlugin,
-
-    IViewerPlugin, FileTransferPlugin,
-
-    // Color, // Import THREE.js internals
-    // Texture, // Import THREE.js internals
+  // Color, // Import THREE.js internals
+  // Texture, // Import THREE.js internals
 } from "webgi";
 import "./styles.css";
 
-async function setupViewer(){
+async function setupViewer() {
+  // Initialize the viewer
+  const viewer = new ViewerApp({
+    canvas: document.getElementById("webgi-canvas") as HTMLCanvasElement,
+  });
 
-    // Initialize the viewer
-    const viewer = new ViewerApp({
-        canvas: document.getElementById('webgi-canvas') as HTMLCanvasElement,
-    })
+  const manager = await viewer.addPlugin(AssetManagerPlugin);
 
-    // Add plugins individually.
-    // await viewer.addPlugin(GBufferPlugin)
-    // await viewer.addPlugin(new ProgressivePlugin(32))
-    // await viewer.addPlugin(new TonemapPlugin(!viewer.useRgbm))
-    // await viewer.addPlugin(GammaCorrectionPlugin)
-    // await viewer.addPlugin(SSRPlugin)
-    // await viewer.addPlugin(SSAOPlugin)
-    // await viewer.addPlugin(DiamondPlugin)
-    // await viewer.addPlugin(FrameFadePlugin)
-    // await viewer.addPlugin(GLTFAnimationPlugin)
-    // await viewer.addPlugin(GroundPlugin)
-    // await viewer.addPlugin(BloomPlugin)
-    // await viewer.addPlugin(TemporalAAPlugin)
-    // await viewer.addPlugin(AnisotropyPlugin)
-    // and many more...
+  // Add plugins individually.
+    await viewer.addPlugin(GBufferPlugin)
+    await viewer.addPlugin(new ProgressivePlugin(32))
+  await viewer.addPlugin(new TonemapPlugin(!viewer.useRgbm));
+  //   await viewer.addPlugin(GammaCorrectionPlugin)
+  await viewer.addPlugin(SSRPlugin);
+  await viewer.addPlugin(SSAOPlugin);
+  //   await viewer.addPlugin(DiamondPlugin)
+  //   await viewer.addPlugin(FrameFadePlugin)
+  //   await viewer.addPlugin(GLTFAnimationPlugin)
+  //   await viewer.addPlugin(GroundPlugin)
+  await viewer.addPlugin(BloomPlugin);
+  //   await viewer.addPlugin(TemporalAAPlugin)
+  //   await viewer.addPlugin(AnisotropyPlugin)
+  // and many more...
 
-    // or use this to add all main ones at once.
-    await addBasePlugins(viewer) // check the source: https://codepen.io/repalash/pen/JjLxGmy for the list of plugins added.
+  viewer.renderer.refreshPipeline();
 
-    // Add a popup(in HTML) with download progress when any asset is downloading.
-    await viewer.addPlugin(AssetManagerBasicPopupPlugin)
+  // or use this to add all main ones at once.
+  //  await addBasePlugins(viewer); // check the source: https://codepen.io/repalash/pen/JjLxGmy for the list of plugins added.
 
-    // Required for downloading files from the UI
-    await viewer.addPlugin(FileTransferPlugin)
+  // Add a popup(in HTML) with download progress when any asset is downloading.
+  //   await viewer.addPlugin(AssetManagerBasicPopupPlugin);
 
-    // Add more plugins not available in base, like CanvasSnipperPlugin which has helpers to download an image of the canvas.
-    await viewer.addPlugin(CanvasSnipperPlugin)
+  // Required for downloading files from the UI
+  //   await viewer.addPlugin(FileTransferPlugin);
 
-    // Import and add a GLB file.
-    await viewer.load("./assets/camera.glb")
+  // Add more plugins not available in base, like CanvasSnipperPlugin which has helpers to download an image of the canvas.
+  await viewer.addPlugin(CanvasSnipperPlugin);
 
-    // Load an environment map if not set in the glb file
-    // await viewer.setEnvironmentMap("./assets/environment.hdr");
+  // Import and add a GLB file.
+  await viewer.load("./assets/camera.glb");
 
-    // // Add some UI for tweak and testing.
-    // const uiPlugin = await viewer.addPlugin(TweakpaneUiPlugin)
-    // // Add plugins to the UI to see their settings.
-    // uiPlugin.setupPlugins<IViewerPlugin>(TonemapPlugin, CanvasSnipperPlugin)
+  // Load an environment map if not set in the glb file
+  // await viewer.setEnvironmentMap("./assets/environment.hdr");
 
+  // // Add some UI for tweak and testing.
+  // const uiPlugin = await viewer.addPlugin(TweakpaneUiPlugin)
+  // // Add plugins to the UI to see their settings.
+  // uiPlugin.setupPlugins<IViewerPlugin>(TonemapPlugin, CanvasSnipperPlugin)
 }
 
-setupViewer()
+setupViewer();
