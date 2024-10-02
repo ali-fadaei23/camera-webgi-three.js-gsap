@@ -2,29 +2,14 @@ import {
   ViewerApp,
   AssetManagerPlugin,
   GBufferPlugin,
-  timeout,
   ProgressivePlugin,
   TonemapPlugin,
   SSRPlugin,
   SSAOPlugin,
-  DiamondPlugin,
-  FrameFadePlugin,
-  GLTFAnimationPlugin,
-  GroundPlugin,
   BloomPlugin,
-  TemporalAAPlugin,
-  AnisotropyPlugin,
-  GammaCorrectionPlugin,
+  ScrollableCameraViewPlugin,
   //   addBasePlugins,
-  ITexture,
-  TweakpaneUiPlugin,
-  AssetManagerBasicPopupPlugin,
   CanvasSnipperPlugin,
-  IViewerPlugin,
-  FileTransferPlugin,
-
-  // Color, // Import THREE.js internals
-  // Texture, // Import THREE.js internals
 } from "webgi";
 import "./styles.css";
 import gsap from "gsap";
@@ -40,11 +25,14 @@ async function setupViewer() {
   });
 
   const manager = await viewer.addPlugin(AssetManagerPlugin);
-
+  const camera = viewer.scene.activeCamera;
+  const position = camera.position;
+  const target = camera.target;
   // Add plugins individually.
   await viewer.addPlugin(GBufferPlugin);
   await viewer.addPlugin(new ProgressivePlugin(32));
   await viewer.addPlugin(new TonemapPlugin(!viewer.useRgbm));
+  await viewer.addPlugin(ScrollableCameraViewPlugin);
   //   await viewer.addPlugin(GammaCorrectionPlugin)
   await viewer.addPlugin(SSRPlugin);
   await viewer.addPlugin(SSAOPlugin);
@@ -52,35 +40,127 @@ async function setupViewer() {
   //   await viewer.addPlugin(FrameFadePlugin)
   //   await viewer.addPlugin(GLTFAnimationPlugin)
   //   await viewer.addPlugin(GroundPlugin)
-  await viewer.addPlugin(BloomPlugin);
+  //   await viewer.addPlugin(BloomPlugin);
   //   await viewer.addPlugin(TemporalAAPlugin)
   //   await viewer.addPlugin(AnisotropyPlugin)
   // and many more...
 
   viewer.renderer.refreshPipeline();
-
-  // or use this to add all main ones at once.
-  //  await addBasePlugins(viewer); // check the source: https://codepen.io/repalash/pen/JjLxGmy for the list of plugins added.
-
-  // Add a popup(in HTML) with download progress when any asset is downloading.
-  //   await viewer.addPlugin(AssetManagerBasicPopupPlugin);
-
-  // Required for downloading files from the UI
-  //   await viewer.addPlugin(FileTransferPlugin);
-
   // Add more plugins not available in base, like CanvasSnipperPlugin which has helpers to download an image of the canvas.
+
   await viewer.addPlugin(CanvasSnipperPlugin);
 
   // Import and add a GLB file.
-  await viewer.load("./assets/camera.glb");
+  await viewer.load("./assets/ship.glb");
 
-  // Load an environment map if not set in the glb file
-  // await viewer.setEnvironmentMap("./assets/environment.hdr");
+  function setupScrollAnimation() {
+    const tl = gsap.timeline();
 
-  // // Add some UI for tweak and testing.
-  // const uiPlugin = await viewer.addPlugin(TweakpaneUiPlugin)
-  // // Add plugins to the UI to see their settings.
-  // uiPlugin.setupPlugins<IViewerPlugin>(TonemapPlugin, CanvasSnipperPlugin)
+    // First section
+    tl.to(position, {
+      x: -4.51,
+      y: 1.71,
+      z: -3.0,
+      scrollTrigger: {
+        trigger: ".second",
+        start: "top bottom",
+        end: "top top",
+        scrub: true,
+        markers: true,
+      },
+      duration: 4,
+      onUpdate,
+    }).to(target, {
+      x: -0.69,
+      y: -0.0014,
+      z: 0.91,
+      scrollTrigger: {
+        trigger: ".second",
+        start: "top bottom",
+        end: "top top",
+        scrub: true,
+        markers: true,
+      },
+      duration: 4,
+      onUpdate,
+    });
+    // second section
+    tl.to(position, {
+      x: 0.48,
+      y: -0.59,
+      z: 2.21,
+      scrollTrigger: {
+        trigger: ".third",
+        start: "top bottom",
+        end: "top top",
+        scrub: 2,
+        markers: true,
+      },
+      duration: 7,
+      onUpdate,
+    }).to(target, {
+      x: 0.132,
+      y: -0.80,
+      z: 0.20,
+      scrollTrigger: {
+        trigger: ".third",
+        start: "top bottom",
+        end: "top top",
+        scrub: true,
+        markers: true,
+      },
+      duration: 7,
+      onUpdate,
+    });
+
+    // last section
+
+    tl.to(position, {
+      x: 4.49,
+      y: 1.18,
+      z: -4.21,
+      scrollTrigger: {
+        trigger: ".last",
+        start: "top bottom",
+        end: "top top",
+        scrub: true,
+        markers: true,
+      },
+      duration: 4,
+      onUpdate,
+    }).to(target, {
+      x: 0.70,
+      y: -0.35,
+      z: 0.77,
+      scrollTrigger: {
+        trigger: ".last",
+        start: "top bottom",
+        end: "top top",
+        scrub: true,
+        markers: true,
+      },
+      duration: 4,
+      onUpdate,
+    });
+  }
+
+  setupScrollAnimation();
+
+  // webGI Update
+  let needsUpdate = true;
+
+  function onUpdate() {
+    needsUpdate = true;
+    viewer.renderer.resetShadows();
+  }
+
+  await viewer.doOnce("preFrame", () => {
+    if (needsUpdate) {
+      camera.positionUpdated(false);
+      camera.targetUpdated(true);
+      needsUpdate = false;
+    }
+  });
 }
 
 setupViewer();
