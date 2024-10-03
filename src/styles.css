@@ -51,20 +51,8 @@ a:active {
 }
 
 .btn {
-  font-weight: 500;
+  font-weight: normal;
   font-size: 0.9rem;
-  padding: 15px 50px;
-  border: 0;
-  border-radius: 50px;
-  margin: 20px;
-  cursor: pointer;
-}
-
-.btn--navbar {
-  background-color: #2a2a2a;
-  color: white;
-  font-weight: 500;
-  font-size: 0.7rem;
   padding: 15px 50px;
   border: 0;
   border-radius: 50px;
@@ -146,9 +134,22 @@ a:active {
 
 
 .btn--section {
-  font-weight: bold;
+  font-weight: normal;
   font-size: 1rem;
-  color: #2a2a2a;
+  background: #606060;
+  color: white;
+}
+.btn--section:hover {
+  font-weight: normal;
+  font-size: 1rem;
+  background: #2a2a2a;
+  color: white;
+}
+
+.btn--section:active {
+  font-weight: normal;
+  font-size: 1rem;
+  background: #606060;
 }
 
 .text-2 {
@@ -259,13 +260,31 @@ a:active {
 footer {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: white;
+  justify-content: space-between;
+  background: #ffffffe3;
   border-top: 1px solid darkslategray;
   position: relative;
   z-index: 1;
-  padding: 70px;
+  padding: 20px;
   display: flex;
+}
+
+.btn--footer {
+  padding-inline: 30px;
+  background: #2a2a2a;
+  color: white;
+}
+
+.btn--footer:hover {
+  padding-inline: 30px;
+  background: #606060;
+  color: white;
+}
+
+.btn--footer:active {
+  padding-inline: 30px;
+  background: #2a2a2a;
+  color: white;
 }
 
 .footer-links {

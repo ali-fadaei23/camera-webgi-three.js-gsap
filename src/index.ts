@@ -66,7 +66,6 @@ async function setupViewer() {
         start: "top bottom",
         end: "top 90%",
         scrub: true,
-        markers: true,
         immediateRender: false,
       },
       duration: 4,
@@ -80,7 +79,7 @@ async function setupViewer() {
           start: "top bottom",
           end: "top 40%",
           scrub: 1,
-          markers: true,
+
           immediateRender: false,
         },
         duration: 4,
@@ -95,7 +94,7 @@ async function setupViewer() {
           start: "top bottom",
           end: "top top",
           scrub: true,
-          markers: true,
+
           immediateRender: false,
         },
         duration: 4,
@@ -111,21 +110,20 @@ async function setupViewer() {
         start: "top bottom",
         end: "top top",
         scrub: 2,
-        markers: true,
         immediateRender: false,
       },
       duration: 7,
       onUpdate,
     })
       .to(".section--two--container", {
-        yPercent: "-100",
+        xPercent: "150",
         opacity: 0,
         scrollTrigger: {
           trigger: ".third",
           start: "top bottom",
-          end: "top top",
+          end: "top center",
           scrub: true,
-          markers: true,
+
           immediateRender: false,
         },
         duration: 4,
@@ -140,7 +138,7 @@ async function setupViewer() {
           start: "top bottom",
           end: "top top",
           scrub: true,
-          markers: true,
+
           immediateRender: false,
         },
         duration: 7,
@@ -151,14 +149,13 @@ async function setupViewer() {
 
     tl.to(position, {
       x: -1.41,
-      y: -0.30,
+      y: -0.3,
       z: -3.01,
       scrollTrigger: {
         trigger: ".last",
         start: "top bottom",
         end: "top top",
         scrub: true,
-        markers: true,
         immediateRender: false,
       },
       duration: 4,
@@ -172,7 +169,6 @@ async function setupViewer() {
         start: "top bottom",
         end: "top top",
         scrub: true,
-        markers: true,
         immediateRender: false,
       },
       duration: 4,
