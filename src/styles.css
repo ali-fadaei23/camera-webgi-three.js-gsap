@@ -13,8 +13,6 @@ body {
   padding: 0;
   margin: 0;
   overflow-x: hidden;
-  position: relative;
-
 }
 
 .nav--bar {
@@ -29,7 +27,6 @@ body {
   z-index: 3;
   background: #ffffffe3;
   border-bottom: 1px solid darkslategray;
-  padding-block: 4px;
 }
 
 .link {
@@ -48,7 +45,8 @@ a {
   color: #2a2a2a;
 }
 
-a:hover, a:active {
+a:hover,
+a:active {
   color: #606060;
 }
 
@@ -93,9 +91,9 @@ a:hover, a:active {
   margin-top: 4%;
 }
 
-/* .section--header {
+.section--header {
   z-index: 1;
-} */
+}
 
 .section--content {
   display: flex;
@@ -122,7 +120,6 @@ a:hover, a:active {
 }
 
 .paragraph {
-  position: relative;
   width: 580px;
   font-style: oblique;
   font-weight: normal;
@@ -144,7 +141,7 @@ a:hover, a:active {
 
 .p-last {
   width: 655px;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
 }
 
 
@@ -152,17 +149,6 @@ a:hover, a:active {
   font-weight: bold;
   font-size: 1rem;
   color: #2a2a2a;
-}
-
-
-.section-2 {
-  display: flex;
-  align-items: end;
-  justify-content: center;
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh;
-
 }
 
 .text-2 {
@@ -179,14 +165,21 @@ a:hover, a:active {
 
 
 .second {
+  display: flex;
+  flex-direction: column;
   justify-content: flex-end;
-  position: relative;
   align-items: end;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  margin-top: 0;
 }
 
 .third {
+  display: flex;
   align-items: center;
   justify-content: flex-end;
+  margin-top: 13%;
 }
 
 .last {
@@ -194,6 +187,7 @@ a:hover, a:active {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-end;
+  padding-block: 15%;
 }
 
 .section--two--container {
@@ -218,6 +212,7 @@ a:hover, a:active {
   flex-direction: column;
   align-items: center;
   margin-bottom: -10%;
+  padding-block: 35px;
 }
 
 .custom--bg {
@@ -261,7 +256,21 @@ a:hover, a:active {
   margin-block: 2%;
 }
 
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-top: 1px solid darkslategray;
+  position: relative;
+  z-index: 1;
+  padding: 70px;
+  display: flex;
+}
 
+.footer-links {
+  gap: 2rem;
+}
 
 #webgi-canvas {
   width: 100%;
@@ -272,6 +281,7 @@ a:hover, a:active {
 
 #webgi-canvas-container {
   width: 100vw;
-  height: 20vh;
+  height: 100vh;
   pointer-events: none;
+  position: fixed;
 }

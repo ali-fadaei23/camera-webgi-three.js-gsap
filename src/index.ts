@@ -64,26 +64,43 @@ async function setupViewer() {
       scrollTrigger: {
         trigger: ".second",
         start: "top bottom",
-        end: "top top",
+        end: "top 90%",
         scrub: true,
         markers: true,
+        immediateRender: false,
       },
       duration: 4,
       onUpdate,
-    }).to(target, {
-      x: -0.69,
-      y: -0.0014,
-      z: 0.91,
-      scrollTrigger: {
-        trigger: ".second",
-        start: "top bottom",
-        end: "top top",
-        scrub: true,
-        markers: true,
-      },
-      duration: 4,
-      onUpdate,
-    });
+    })
+      .to(".section--content", {
+        xPercent: "-150",
+        opacity: 0,
+        scrollTrigger: {
+          trigger: ".second",
+          start: "top bottom",
+          end: "top 40%",
+          scrub: 1,
+          markers: true,
+          immediateRender: false,
+        },
+        duration: 4,
+        onUpdate,
+      })
+      .to(target, {
+        x: -0.69,
+        y: -0.0014,
+        z: 0.91,
+        scrollTrigger: {
+          trigger: ".second",
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
+          markers: true,
+          immediateRender: false,
+        },
+        duration: 4,
+        onUpdate,
+      });
     // second section
     tl.to(position, {
       x: 0.48,
@@ -95,49 +112,68 @@ async function setupViewer() {
         end: "top top",
         scrub: 2,
         markers: true,
+        immediateRender: false,
       },
       duration: 7,
       onUpdate,
-    }).to(target, {
-      x: 0.132,
-      y: -0.80,
-      z: 0.20,
-      scrollTrigger: {
-        trigger: ".third",
-        start: "top bottom",
-        end: "top top",
-        scrub: true,
-        markers: true,
-      },
-      duration: 7,
-      onUpdate,
-    });
+    })
+      .to(".section--two--container", {
+        yPercent: "-100",
+        opacity: 0,
+        scrollTrigger: {
+          trigger: ".third",
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
+          markers: true,
+          immediateRender: false,
+        },
+        duration: 4,
+        onUpdate,
+      })
+      .to(target, {
+        x: 0.132,
+        y: -0.8,
+        z: 0.2,
+        scrollTrigger: {
+          trigger: ".third",
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
+          markers: true,
+          immediateRender: false,
+        },
+        duration: 7,
+        onUpdate,
+      });
 
     // last section
 
     tl.to(position, {
-      x: 4.49,
-      y: 1.18,
-      z: -4.21,
+      x: -1.41,
+      y: -0.30,
+      z: -3.01,
       scrollTrigger: {
         trigger: ".last",
         start: "top bottom",
         end: "top top",
         scrub: true,
         markers: true,
+        immediateRender: false,
       },
       duration: 4,
       onUpdate,
     }).to(target, {
-      x: 0.70,
-      y: -0.35,
-      z: 0.77,
+      x: 1.91,
+      y: -1.31,
+      z: 0.05,
       scrollTrigger: {
         trigger: ".last",
         start: "top bottom",
         end: "top top",
         scrub: true,
         markers: true,
+        immediateRender: false,
       },
       duration: 4,
       onUpdate,
